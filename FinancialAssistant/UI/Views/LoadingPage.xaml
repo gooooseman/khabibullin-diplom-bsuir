@@ -1,0 +1,9 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FinancialAssistant.UI.Views.LoadingPage"
+             Shell.NavBarIsVisible="False">
+    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="20">
+        <ActivityIndicator IsRunning="True" Color="{StaticResource Primary}"/>
+        <Label x:Name="StatusLabel" Text="Starting..." FontSize="18" HorizontalOptions="Center"/>
+    </VerticalStackLayout>
+</ContentPage>

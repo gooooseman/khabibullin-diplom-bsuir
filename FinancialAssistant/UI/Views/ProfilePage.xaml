@@ -1,0 +1,23 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:FinancialAssistant.UI.ViewModels"
+             xmlns:loc="clr-namespace:FinancialAssistant.UI.Markup"
+             x:Class="FinancialAssistant.UI.Views.ProfilePage"
+             Title="{Binding Title}">
+
+    <VerticalStackLayout Padding="20" Spacing="20">
+        <Image Source="dotnet_bot.svg" HeightRequest="100" WidthRequest="100" HorizontalOptions="Center" />
+        
+        <Label Text="{Binding CurrentUser.Username}" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center"/>
+        <Label Text="{Binding CurrentUser.Email}" FontSize="16" TextColor="Gray" HorizontalOptions="Center"/>
+        
+        <Border Padding="15" StrokeShape="RoundRectangle 10" BackgroundColor="{AppThemeBinding Light={StaticResource LightSurface}, Dark={StaticResource DarkSurface}}">
+            <VerticalStackLayout>
+                <Label Text="{loc:Translate Text=PremiumStatus}" TextColor="Gray"/>
+                <Label Text="{Binding PremiumStatusText}" FontSize="18" FontAttributes="Bold" TextColor="{StaticResource Primary}"/>
+            </VerticalStackLayout>
+        </Border>
+
+        <Button Text="{loc:Translate Text=Logout}" Command="{Binding LogoutCommand}" BackgroundColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}" TextColor="White"/>
+    </VerticalStackLayout>
+</ContentPage>

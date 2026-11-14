@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="FinancialAssistant.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:FinancialAssistant.UI.Views"
+    Title="FinancialAssistant"
+    BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}"
+    ForegroundColor="{AppThemeBinding Light={StaticResource LightTextPrimary}, Dark={StaticResource DarkTextPrimary}}"
+    TitleColor="{AppThemeBinding Light={StaticResource LightTextPrimary}, Dark={StaticResource DarkTextPrimary}}"
+    FlyoutBackgroundColor="{AppThemeBinding Light={StaticResource LightSurface}, Dark={StaticResource DarkSurface}}"
+    FlyoutHeaderBehavior="CollapseOnScroll">
+
+    <Shell.Resources>
+        <Style x:Key="BaseStyle" TargetType="Element">
+            <Setter Property="Shell.BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightSurface}, Dark={StaticResource DarkSurface}}" />
+            <Setter Property="Shell.ForegroundColor" Value="{AppThemeBinding Light={StaticResource LightPrimary}, Dark={StaticResource DarkPrimary}}" />
+            <Setter Property="Shell.TitleColor" Value="{AppThemeBinding Light={StaticResource LightTextPrimary}, Dark={StaticResource DarkTextPrimary}}" />
+            <Setter Property="Shell.DisabledColor" Value="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}" />
+            <Setter Property="Shell.UnselectedColor" Value="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}" />
+            <Setter Property="Shell.TabBarBackgroundColor" Value="{AppThemeBinding Light={StaticResource LightSurface}, Dark={StaticResource DarkSurface}}" />
+            <Setter Property="Shell.TabBarForegroundColor" Value="{AppThemeBinding Light={StaticResource LightPrimary}, Dark={StaticResource DarkPrimary}}" />
+            <Setter Property="Shell.TabBarUnselectedColor" Value="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}" />
+            <Setter Property="Shell.TabBarTitleColor" Value="{AppThemeBinding Light={StaticResource LightPrimary}, Dark={StaticResource DarkPrimary}}" />
+        </Style>
+        <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
+        <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
+    </Shell.Resources>
+
+    <TabBar>
+        <Tab x:Name="TabHome"      Title="Главная"   Icon="tab_home.svg">
+            <ShellContent ContentTemplate="{DataTemplate views:DashboardPage}" />
+        </Tab>
+        <Tab x:Name="TabIncome"    Title="Доходы"    Icon="tab_income.svg">
+            <ShellContent ContentTemplate="{DataTemplate views:IncomePage}" />
+        </Tab>
+        <Tab x:Name="TabExpense"   Title="Расходы"   Icon="tab_expense.svg">
+            <ShellContent ContentTemplate="{DataTemplate views:ExpensePage}" />
+        </Tab>
+        <Tab x:Name="TabAnalytics" Title="Аналитика" Icon="tab_analytics.svg">
+            <ShellContent ContentTemplate="{DataTemplate views:AnalyticsPage}" />
+        </Tab>
+        <Tab x:Name="TabGoals"     Title="Цели"      Icon="tab_goals.svg">
+            <ShellContent ContentTemplate="{DataTemplate views:GoalsPage}" />
+        </Tab>
+        <Tab x:Name="TabSettings"  Title="Настройки" Icon="tab_settings.svg">
+            <ShellContent ContentTemplate="{DataTemplate views:SettingsPage}" />
+        </Tab>
+    </TabBar>
+
+</Shell>

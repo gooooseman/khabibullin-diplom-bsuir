@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:FinancialAssistant.UI.ViewModels"
+             xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
+             x:Class="FinancialAssistant.UI.Views.ScanReceiptPage"
+             Title="{Binding Title}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            
+            <!-- Camera Section -->
+            <VerticalStackLayout IsVisible="{Binding IsQrScanMode}" Spacing="15">
+                <zxing:CameraBarcodeReaderView x:Name="barcodeReader" 
+                                               HeightRequest="300" 
+                                               WidthRequest="300"
+                                               HorizontalOptions="Center"/>
+                
+                <ActivityIndicator IsRunning="{Binding IsScanning}" 
+                                   Color="{StaticResource Primary}" 
+                                   HeightRequest="40"/>
+                
+                <Label Text="{Binding ScanStatus}" 
+                       FontSize="16" 
+                       HorizontalOptions="Center" 
+                       TextColor="Gray"/>
+                
+                <Button Text="Сканировать QR-код" 
+                        Command="{Binding ScanCommand}" 
+                        BackgroundColor="{StaticResource Primary}" 
+                        TextColor="White" 
+                        HeightRequest="50" 
+                        CornerRadius="25"/>
+            </VerticalStackLayout>
+
+            <!-- Confirmation Section -->
+            <VerticalStackLayout IsVisible="{Binding IsConfirmVisible}" Spacing="15">
+                <Label Text="Чек распознан" 
+                       FontSize="20" 
+                       FontAttributes="Bold" 
+                       HorizontalOptions="Center"/>
+                
+                <Frame BorderColor="{StaticResource Primary}" 
+                       CornerRadius="10" 
+                       Padding="15">
+                    <VerticalStackLayout Spacing="10">
+                        <HorizontalStackLayout Spacing="10">
+                            <Label Text="Сумма:" FontAttributes="Bold"/>
+                            <Label Text="{Binding ScannedReceipt.TotalAmount, StringFormat='{0:F2} BYN'}"/>
+                        </HorizontalStackLayout>
+                        
+                        <HorizontalStackLayout Spacing="10">
+                            <Label Text="Дата:" FontAttributes="Bold"/>
+                            <Label Text="{Binding ScannedReceipt.PurchaseDate, StringFormat='{0:dd.MM.yyyy HH:mm}'}"/>
+                        </HorizontalStackLayout>
+                        
+                        <HorizontalStackLayout Spacing="10">
+                            <Label Text="ID чека:" FontAttributes="Bold"/>
+                            <Label Text="{Binding ScannedReceipt.ReceiptId}" FontSize="12"/>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Frame>
+                
+                <Label Text="Выберите категорию:" FontAttributes="Bold"/>
+                <Picker ItemsSource="{Binding Categories}" 
+                        ItemDisplayBinding="{Binding Name}"
+                        SelectedItem="{Binding SelectedCategory}"
+                        Title="Категория"/>
+                
+                <Button Text="Подтвердить" 
+                        Command="{Binding ConfirmCommand}" 
+                        BackgroundColor="{StaticResource Primary}" 
+                        TextColor="White" 
+                        HeightRequest="50" 
+                        CornerRadius="25"/>
+                
+                <Button Text="Отмена" 
+                        Command="{Binding CancelCommand}" 
+                        BackgroundColor="Gray" 
+                        TextColor="White" 
+                        HeightRequest="50" 
+                        CornerRadius="25"/>
+            </VerticalStackLayout>
+
+            <!-- Error Message -->
+            <Label Text="{Binding ErrorMessage}" 
+                   TextColor="Red" 
+                   FontSize="14" 
+                   HorizontalOptions="Center"
+                   IsVisible="{Binding ErrorMessage, Converter={StaticResource StringIsNotNullOrEmptyConverter}}"/>
+            
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

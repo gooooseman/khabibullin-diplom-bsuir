@@ -1,0 +1,25 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:FinancialAssistant.UI.ViewModels"
+             xmlns:loc="clr-namespace:FinancialAssistant.UI.Markup"
+             x:Class="FinancialAssistant.UI.Views.PremiumPage"
+             Title="{Binding Title}">
+
+    <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="Center">
+        <Label Text="{loc:Translate Text=Premium}" FontSize="32" FontAttributes="Bold" HorizontalOptions="Center" TextColor="{StaticResource Primary}"/>
+        
+        <Label Text="{loc:Translate Text=PremiumBenefits}" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="18"/>
+        
+        <Button Text="{loc:Translate Text=BuyPremium}" Command="{Binding BuyPremiumCommand}" 
+                IsEnabled="{Binding IsPremium, Converter={StaticResource InvertedBoolConverter}}"
+                BackgroundColor="{StaticResource Primary}" TextColor="White" HeightRequest="60" CornerRadius="30" Margin="0,30,0,0"/>
+                
+        <Label Text="{loc:Translate Text=Active}" IsVisible="{Binding IsPremium}" TextColor="Green" HorizontalOptions="Center" FontAttributes="Bold"/>
+    </VerticalStackLayout>
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <viewmodels:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+</ContentPage>

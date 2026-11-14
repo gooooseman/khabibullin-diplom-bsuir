@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:loc="clr-namespace:FinancialAssistant.UI.Markup"
+             x:Class="FinancialAssistant.UI.Views.CategoryDetailPage"
+             Title="{Binding CategoryName}">
+
+    <Grid RowDefinitions="Auto, *" Padding="16" RowSpacing="16">
+
+        <!-- Total Amount Card -->
+        <Border Grid.Row="0" Style="{StaticResource CardStyle}">
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Итого" Style="{StaticResource CaptionText}"/>
+                <Label Text="{Binding TotalAmount, StringFormat='{0:N2}'}"
+                       Style="{StaticResource Headline2}"
+                       TextColor="{AppThemeBinding Light={StaticResource LightError}, Dark={StaticResource DarkError}}"/>
+            </VerticalStackLayout>
+        </Border>
+
+        <!-- Expenses List -->
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Expenses}" SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Margin="0,0,0,8" Padding="12"
+                            StrokeShape="RoundRectangle 8"
+                            Stroke="{AppThemeBinding Light={StaticResource LightBorder}, Dark={StaticResource DarkBorder}}"
+                            StrokeThickness="1">
+                        <Grid ColumnDefinitions="*, Auto" RowDefinitions="Auto, Auto">
+                            <Label Grid.Row="0" Grid.Column="0"
+                                   Text="{Binding Date, StringFormat='{0:dd MMM yyyy}'}"
+                                   Style="{StaticResource CaptionText}"/>
+                            <Label Grid.Row="0" Grid.Column="1"
+                                   Text="{Binding Amount, StringFormat='{0:N2}'}"
+                                   Style="{StaticResource BodyText}"
+                                   FontAttributes="Bold"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightError}, Dark={StaticResource DarkError}}"/>
+                            <Label Grid.Row="1" Grid.ColumnSpan="2"
+                                   Text="{Binding Comment}"
+                                   Style="{StaticResource CaptionText}"
+                                   IsVisible="{Binding Comment, Converter={StaticResource StringIsNotNullOrEmptyConverter}}"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <Label Text="Нет расходов в данной категории"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       Style="{StaticResource SubHeadline}"/>
+            </CollectionView.EmptyView>
+        </CollectionView>
+
+    </Grid>
+</ContentPage>

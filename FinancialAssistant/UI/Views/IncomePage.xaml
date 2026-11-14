@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:FinancialAssistant.UI.ViewModels"
+             xmlns:loc="clr-namespace:FinancialAssistant.UI.Markup"
+             x:Class="FinancialAssistant.UI.Views.IncomePage"
+             Title="{Binding Title}">
+
+    <Grid RowDefinitions="*, Auto">
+        <CollectionView Grid.Row="0" ItemsSource="{Binding Incomes}" SelectionMode="None" Margin="10">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Margin="0,5" Padding="10" StrokeShape="RoundRectangle 8" Stroke="{AppThemeBinding Light={StaticResource LightBorder}, Dark={StaticResource DarkBorder}}" StrokeThickness="1">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <VerticalStackLayout Grid.Column="0">
+                                <Label Text="{Binding Source}" FontAttributes="Bold" FontSize="16"/>
+                                <Label Text="{Binding Date, StringFormat='{0:dd MMM yyyy}'}" FontSize="12" TextColor="{AppThemeBinding Light={StaticResource LightText}, Dark={StaticResource DarkText}}"/>
+                                <Label Text="{Binding Comment}" FontSize="12" TextColor="{AppThemeBinding Light={StaticResource LightText}, Dark={StaticResource DarkText}}" IsVisible="{Binding Comment, Converter={StaticResource StringIsNotNullOrEmptyConverter}}"/>
+                            </VerticalStackLayout>
+                            <Label Grid.Column="1" Text="{Binding Amount, StringFormat='{0:N2}'}" TextColor="{AppThemeBinding Light={StaticResource LightSuccess}, Dark={StaticResource DarkSuccess}}" FontAttributes="Bold" FontSize="16" VerticalOptions="Center"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <Label Text="{loc:Translate Text=EmptyIncomes}" HorizontalOptions="Center" VerticalOptions="Center" TextColor="{AppThemeBinding Light={StaticResource LightText}, Dark={StaticResource DarkText}}"/>
+            </CollectionView.EmptyView>
+        </CollectionView>
+
+        <Button Grid.Row="1" Text="{loc:Translate Text=AddIncome}" Command="{Binding AddIncomeCommand}" Margin="20" BackgroundColor="{AppThemeBinding Light={StaticResource LightAccent1}, Dark={StaticResource DarkAccent1}}" TextColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource DarkText}}" CornerRadius="20"/>
+    </Grid>
+</ContentPage>
+

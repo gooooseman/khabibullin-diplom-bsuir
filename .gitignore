@@ -1,0 +1,51 @@
+# Build output
+bin/
+obj/
+*.user
+
+# Visual Studio
+.vs/
+*.suo
+*.userosscache
+*.sln.docstates
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+!**/packages/repositories.config
+*.nuget.props
+*.nuget.targets
+
+# .NET MAUI / Android
+*.apk
+*.aab
+*.keystore
+*.jks
+Platforms/Android/Resources/Resource.designer.cs
+
+# User-specific files
+launchSettings.json
+*.DotSettings.user
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+*.txt.log
+
+# SQLite database (user data — не коммитить)
+*.db3
+*.db
+*.sqlite
+
+# Secrets / keys
+*.pfx
+*.p12
+google-services.json
+GoogleService-Info.plist

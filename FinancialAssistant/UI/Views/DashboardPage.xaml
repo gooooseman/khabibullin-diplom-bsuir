@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:FinancialAssistant.UI.ViewModels"
+             xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
+             xmlns:loc="clr-namespace:FinancialAssistant.UI.Markup"
+             x:Class="FinancialAssistant.UI.Views.DashboardPage"
+             Title="{Binding Title}">
+
+    <ScrollView>
+        <Grid RowDefinitions="Auto, Auto, Auto, Auto" Padding="20" RowSpacing="24">
+            
+            <!-- Welcome Header -->
+            <VerticalStackLayout Grid.Row="0" Spacing="4">
+                <Label Text="{Binding UserGreeting}" Style="{StaticResource Headline1}" />
+                <Label Text="{loc:Translate Text=FinancialOverview}" Style="{StaticResource SubHeadline}" />
+            </VerticalStackLayout>
+
+            <!-- Summary Cards -->
+            <Grid Grid.Row="1" ColumnDefinitions="*, *" ColumnSpacing="16">
+                <!-- Balance Card -->
+                <Border Grid.Column="0" Style="{StaticResource CardStyle}" BackgroundColor="{AppThemeBinding Light={StaticResource LightPrimary}, Dark={StaticResource DarkPrimary}}">
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="{loc:Translate Text=TotalBalance}" TextColor="White" Opacity="0.9" FontSize="14"/>
+                        <Label TextColor="White" FontSize="24" FontAttributes="Bold">
+                            <Label.Text>
+                                <MultiBinding StringFormat="{}{0:N2} {1}">
+                                    <Binding Path="TotalBalance"/>
+                                    <Binding Path="CurrencySymbol"/>
+                                </MultiBinding>
+                            </Label.Text>
+                        </Label>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Expense Card -->
+                <Border Grid.Column="1" Style="{StaticResource CardStyle}" BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondary}, Dark={StaticResource DarkSecondary}}">
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="{loc:Translate Text=MonthlyExpense}" TextColor="White" Opacity="0.9" FontSize="14"/>
+                        <Label TextColor="White" FontSize="24" FontAttributes="Bold">
+                            <Label.Text>
+                                <MultiBinding StringFormat="{}{0:N2} {1}">
+                                    <Binding Path="MonthlyExpense"/>
+                                    <Binding Path="CurrencySymbol"/>
+                                </MultiBinding>
+                            </Label.Text>
+                        </Label>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <!-- Chart Section -->
+            <Border Grid.Row="2" Style="{StaticResource CardStyle}">
+                <VerticalStackLayout Spacing="16">
+                    <Label Text="{loc:Translate Text=SpendingBreakdown}" Style="{StaticResource Headline2}" FontSize="18"/>
+                    <micro:ChartView Chart="{Binding ExpenseChart}" HeightRequest="220" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Advice Section -->
+            <VerticalStackLayout Grid.Row="3" Spacing="12">
+                <Label Text="{loc:Translate Text=Advice}" Style="{StaticResource Headline2}" FontSize="20"/>
+                
+                <CollectionView ItemsSource="{Binding AdviceList}" SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="0,0,0,12" Style="{StaticResource CardStyle}" Padding="16,12">
+                                <Grid ColumnDefinitions="4, *" ColumnSpacing="12">
+                                    <BoxView Grid.Column="0" Color="{Binding Severity, Converter={StaticResource SeverityColorConverter}}" CornerRadius="2"/>
+                                    <VerticalStackLayout Grid.Column="1" Spacing="4">
+                                        <Label Text="{Binding Title}" Style="{StaticResource BodyText}" FontAttributes="Bold"/>
+                                        <Label Text="{Binding Description}" Style="{StaticResource CaptionText}" MaxLines="2" LineBreakMode="TailTruncation"/>
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+            
+        </Grid>
+    </ScrollView>
+</ContentPage>
